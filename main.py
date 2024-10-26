@@ -32,7 +32,8 @@ def draw():
 
 firstCirclePos = None
 secondCirclePos = None
-
+alreadyClickedPlaces = []
+textRecs = [subwaySurfersTextRect, templeRunTextRect, candyTextRect, ludoTextRect]
 isFirstButtonINIT = False
 while True:
 
@@ -47,17 +48,25 @@ while True:
         if event.type == pygame.MOUSEBUTTONUP:
             if subwaySurfersRect.collidepoint(pygame.mouse.get_pos()) or templeRunRect.collidepoint(pygame.mouse.get_pos()) or candyRect.collidepoint(pygame.mouse.get_pos()) or ludoRect.collidepoint(pygame.mouse.get_pos()):
                 if isFirstButtonINIT:
+
                     isFirstButtonINIT = False
                     secondCirclePos = pygame.mouse.get_pos()
                     pygame.draw.circle(screen, (255,255,255), pygame.mouse.get_pos(), 5)
                     pygame.draw.line(screen, (255,255,255), firstCirclePos, secondCirclePos)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
+            for textRec in textRecs:
+                if textRec.collidepoint(pygame.mouse.get_pos()):
+                    
+        
+                    if not textRec in alreadyClickedPlaces:
+                        alreadyClickedPlaces.append(textRec)
+                        firstCirclePos = pygame.mouse.get_pos()
+                        isFirstButtonINIT = True
+
+                        pygame.draw.circle(screen, (255,255,255), pygame.mouse.get_pos(), 5)
             
-            if subwaySurfersTextRect.collidepoint(pygame.mouse.get_pos()) or templeRunTextRect.collidepoint(pygame.mouse.get_pos()) or candyTextRect.collidepoint(pygame.mouse.get_pos()) or ludoTextRect.collidepoint(pygame.mouse.get_pos()):
-                firstCirclePos = pygame.mouse.get_pos()
-                isFirstButtonINIT = True
-                pygame.draw.circle(screen, (255,255,255), pygame.mouse.get_pos(), 5)
+                
                 
           
 
